@@ -70,7 +70,7 @@ function App() {
 
             if (pipe.x < 0){
 
-                console.log("DELETEING PIPE");
+              //  console.log("DELETEING PIPE");
                 //remove from array
                pipes.splice(x,1);
                pipe = null;

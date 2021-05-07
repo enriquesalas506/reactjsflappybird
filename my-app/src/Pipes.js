@@ -19,6 +19,11 @@ export function Pipes(p5,canvasX,canvasY) {
     this.WIDTH = 100;
 
 
+    this.hittop = false;
+    this.hitbottom = false;
+
+
+
 
     this.update = function () {
 
@@ -27,6 +32,18 @@ export function Pipes(p5,canvasX,canvasY) {
         this.checkGame();
 
         this.draw();
+
+
+    }
+
+
+    this.hit = function (top,bottom) {
+
+
+        this.hittop = top;
+        this.hitbottom = bottom;
+
+
 
 
     }
@@ -46,13 +63,28 @@ export function Pipes(p5,canvasX,canvasY) {
     this.draw = function () {
 
 
+        let white = this.p5.color(255, 255, 255);
+        this.p5.fill(white);
 
+
+
+        if (this.hittop == true){
+            let color = this.p5.color(204, 102, 0);
+            this.p5.fill(color);
+        }
 
         this.p5.rect(this.x,0,this.WIDTH,this.top);
+        this.p5.fill(white);
 
+
+        if (this.hitbottom == true) {
+            let color = this.p5.color(204, 102, 0);
+            this.p5.fill(color);
+        }
 
         this.p5.rect(this.x,this.bottom,this.WIDTH,canvasY - this.bottom);
 
+        this.p5.fill(white);
 
 
     }

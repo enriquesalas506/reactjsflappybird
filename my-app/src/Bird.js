@@ -26,8 +26,8 @@ export function Bird(p5, x, y,brain) {
     document.addEventListener('mousemove', (event) => {
      //   console.log(`Mouse X: ${event.clientX}, Mouse Y: ${event.clientY}`);
 
-        this.x = event.clientX;
-        this.y = event.clientY;
+        //this.x = event.clientX;
+        //this.y = event.clientY;
     });
 
 
@@ -64,18 +64,27 @@ export function Bird(p5, x, y,brain) {
         var b2 = new SAT.Box(new SAT.Vector(pipe.x,pipe.bottom), pipe.WIDTH, pipe.canvasY - pipe.bottom).toPolygon();
 
 
+
+
+
         var response = new SAT.Response();
         var response2 = new SAT.Response();
 
 
         if (SAT.testPolygonCircle(b,c,response)){
 
-            console.log("COLIDED");
+           // console.log("COLIDED");
+
+            pipe.hit(true,false);
         }
 
         if (SAT.testPolygonCircle(b2,c,response2)){
 
-            console.log("COLIDED 2");
+
+            pipe.hit(false,true);
+
+
+         //   console.log("COLIDED 2");
         }
 
 
@@ -100,7 +109,6 @@ export function Bird(p5, x, y,brain) {
 
 
         this.checkGame();
-
         this.draw();
 
 
@@ -132,7 +140,7 @@ export function Bird(p5, x, y,brain) {
 
 
         this.speedY = this.speedY + GRAVITY;
-       // this.y = this.y + this.speedY;
+        this.y = this.y + this.speedY;
 
 
     }
