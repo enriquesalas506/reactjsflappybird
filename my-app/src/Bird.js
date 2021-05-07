@@ -14,12 +14,28 @@ export function Bird(p5, x, y,brain) {
     this.y = y;
     this.p5 = p5;
 
+    this.fitness =0;
+
     this.mouseX = 0;
     this.mouseY = 0;
 
+    this.dead = false;
 
 
-    this.brain = new NeuralNetwork(null,5,8,2);
+
+
+    if (brain == null) {
+
+        console.log("Bird With New Brain");
+
+        this.brain = new NeuralNetwork(null, 5, 8, 2);
+
+    }else{
+
+        console.log("Bird With Copy");
+        this.brain = new NeuralNetwork(brain, 5, 8, 2);
+
+    }
 
 
 
@@ -29,6 +45,8 @@ export function Bird(p5, x, y,brain) {
         //this.x = event.clientX;
         //this.y = event.clientY;
     });
+
+
 
 
 
@@ -76,12 +94,14 @@ export function Bird(p5, x, y,brain) {
            // console.log("COLIDED");
 
             pipe.hit(true,false);
+            this.dead = true;
         }
 
         if (SAT.testPolygonCircle(b2,c,response2)){
 
 
             pipe.hit(false,true);
+            this.dead = true;
 
 
          //   console.log("COLIDED 2");
@@ -151,6 +171,8 @@ export function Bird(p5, x, y,brain) {
 
 
         this.p5.ellipse(this.x,this.y,this.RADIUS,this.RADIUS);
+
+        this.fitness = this.fitness+1;
 
 
     }

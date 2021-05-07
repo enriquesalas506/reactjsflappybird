@@ -79,6 +79,42 @@ class NeuralNetwork{
         });
     }
 
+    mutate(rate,p5) {
+
+
+        console.log("MUTATING BRAIN");
+
+        tf.tidy(() => {
+            const weights = this.model.getWeights();
+            const mutatedWeights = [];
+            for (let i = 0; i < weights.length; i++) {
+                let tensor = weights[i];
+                let shape = weights[i].shape;
+                let values = tensor.dataSync().slice();
+                for (let j = 0; j < values.length; j++) {
+                    if (p5.random(1) < rate) {
+
+
+
+                        let w = values[j];
+
+                        let changeValue = w + (p5.randomGaussian()*rate);
+
+                        console.log("ORGINAL VALUE "+values[j]+" MUTATION "+changeValue);
+
+
+                        values[j] = changeValue;
+
+
+                    }
+                }
+                let newTensor = tf.tensor(values, shape);
+                mutatedWeights[i] = newTensor;
+            }
+            this.model.setWeights(mutatedWeights);
+        });
+    }
+
 }
 
 export {NeuralNetwork}
