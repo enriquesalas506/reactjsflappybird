@@ -64,7 +64,7 @@ function App() {
 
         p5.background(0);
 
-        if (counter % 30 ==0){
+        if (counter % 60 ==0){
 
             createPipe(p5);
         }
@@ -82,6 +82,12 @@ function App() {
                 //remove from array
                pipes.splice(x,1);
                pipe = null;
+
+
+               //--------- INCREASE SCORE
+
+
+                bird.fitness = bird.fitness+1;
 
 
 
@@ -102,6 +108,7 @@ function App() {
                 if (bird.fitness > highscore){
                     //HIGHLY SELECTED BIRD
 
+                    console.log("HIGHLY SELECTED BIRD");
                     bestBrain = bird.brain.copy();
 
                     highscore = Math.max(bird.fitness,highscore);
@@ -114,9 +121,12 @@ function App() {
                 }else{
 
 
-                    bird.brain.mutate(0.1,p5);
+
 
                     bird = new Bird(p5,100,500,bestBrain);
+                    if (bestBrain != null) {
+                        bird.brain.mutate(0.05, p5);
+                    }
 
 
                 }

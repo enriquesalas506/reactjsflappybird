@@ -92,21 +92,23 @@ class NeuralNetwork{
                 let shape = weights[i].shape;
                 let values = tensor.dataSync().slice();
                 for (let j = 0; j < values.length; j++) {
-                    if (p5.random(1) < rate) {
 
+
+                    if (p5.random(1) < rate) {
 
 
                         let w = values[j];
 
-                        let changeValue = w + (p5.randomGaussian()*rate);
+                        let changeValue = w + (p5.randomGaussian() * rate);
 
-                        console.log("ORGINAL VALUE "+values[j]+" MUTATION "+changeValue);
+                        console.log("ORIGINAL VALUE " + values[j] + " MUTATION " + changeValue);
 
 
                         values[j] = changeValue;
 
-
                     }
+
+
                 }
                 let newTensor = tf.tensor(values, shape);
                 mutatedWeights[i] = newTensor;

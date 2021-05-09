@@ -172,7 +172,6 @@ export function Bird(p5, x, y,brain) {
 
         this.p5.ellipse(this.x,this.y,this.RADIUS,this.RADIUS);
 
-        this.fitness = this.fitness+1;
 
 
     }
