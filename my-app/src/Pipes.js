@@ -3,9 +3,9 @@ export function Pipes(p5,canvasX,canvasY) {
 
 
 
-    let randomY = Math.random() * (canvasY / 2);
+    let randomY = Math.random() * (canvasY -300);
 
-    this.x = canvasX - 50;
+    this.x = canvasX;
 
     this.top = randomY;
     this.bottom = randomY + 300;
@@ -15,8 +15,8 @@ export function Pipes(p5,canvasX,canvasY) {
 
 
     this.p5 = p5;
-    this.SPEEDX = 10;
-    this.WIDTH = 100;
+    this.SPEEDX = 10
+    this.WIDTH = 50;
 
 
     this.hittop = false;
@@ -69,7 +69,7 @@ export function Pipes(p5,canvasX,canvasY) {
 
 
         if (this.hittop == true){
-            let color = this.p5.color(204, 102, 0);
+            let color = this.p5.color(255, 0, 0);
             this.p5.fill(color);
         }
 
@@ -78,7 +78,7 @@ export function Pipes(p5,canvasX,canvasY) {
 
 
         if (this.hitbottom == true) {
-            let color = this.p5.color(204, 102, 0);
+            let color = this.p5.color(255, 0, 0);
             this.p5.fill(color);
         }
 

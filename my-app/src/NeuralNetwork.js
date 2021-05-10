@@ -16,7 +16,7 @@ class NeuralNetwork{
             return;
         }
 
-        console.log("BUILDING BRAIN");
+      //  console.log("BUILDING BRAIN");
 
 
         this.inputnodes = inputnodes;
@@ -82,7 +82,7 @@ class NeuralNetwork{
     mutate(rate,p5) {
 
 
-        console.log("MUTATING BRAIN");
+      //  console.log("MUTATING BRAIN");
 
         tf.tidy(() => {
             const weights = this.model.getWeights();
@@ -94,14 +94,17 @@ class NeuralNetwork{
                 for (let j = 0; j < values.length; j++) {
 
 
-                    if (p5.random(1) < rate) {
+                    if (Math.random< rate) {
+
+
+                        let guassianRandom = (Math.random() - 0.5) * 2;
 
 
                         let w = values[j];
 
-                        let changeValue = w + (p5.randomGaussian() * rate);
+                        let changeValue = w + (guassianRandom * rate);
 
-                        console.log("ORIGINAL VALUE " + values[j] + " MUTATION " + changeValue);
+                        //console.log("ORIGINAL VALUE " + values[j] + " MUTATION " + changeValue);
 
 
                         values[j] = changeValue;

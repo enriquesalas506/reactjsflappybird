@@ -4,15 +4,16 @@ import  SAT from "sat";
 
 
 
-export function Bird(p5, x, y,brain) {
+export function Bird( x, y,brain) {
 
-    const GRAVITY = 1;
+    const GRAVITY = 2;
+    const LIFT = -5;
+
 
     this.RADIUS = 50;
     this.speedY = 0;
     this.x = x;
     this.y = y;
-    this.p5 = p5;
 
     this.fitness =0;
 
@@ -26,14 +27,14 @@ export function Bird(p5, x, y,brain) {
 
     if (brain == null) {
 
-        console.log("Bird With New Brain");
+     //   console.log("Bird With New Brain");
 
-        this.brain = new NeuralNetwork(null, 5, 8, 2);
+        this.brain = new NeuralNetwork(null, 6, 8, 2);
 
     }else{
 
-        console.log("Bird With Copy");
-        this.brain = new NeuralNetwork(brain, 5, 8, 2);
+      //  console.log("Bird With Copy");
+        this.brain = new NeuralNetwork(brain, 6, 8, 2);
 
     }
 
@@ -59,6 +60,8 @@ export function Bird(p5, x, y,brain) {
         inputs[2] = pipe.bottom;
         inputs[3] = pipe.x;
         inputs[4] = pipe.SPEEDX;
+        inputs[5] = this.speedY;
+
         let output = this.brain.predict(inputs);
 
 
@@ -115,7 +118,7 @@ export function Bird(p5, x, y,brain) {
     this.goUp = function(){
 
 
-        this.speedY = -15;
+        this.speedY =  this.speedY + LIFT;
 
 
 
@@ -124,12 +127,12 @@ export function Bird(p5, x, y,brain) {
     }
 
 
-    this.update = function () {
+    this.update = function (p5) {
 
 
 
         this.checkGame();
-        this.draw();
+        this.draw(p5);
 
 
     }
@@ -138,6 +141,9 @@ export function Bird(p5, x, y,brain) {
 
     this.checkGame = function () {
 
+
+        this.y = this.y + this.speedY;
+        this.speedY = this.speedY + GRAVITY;
 
         if (this.y > 1000){
 
@@ -159,18 +165,17 @@ export function Bird(p5, x, y,brain) {
 
 
 
-        this.speedY = this.speedY + GRAVITY;
-        this.y = this.y + this.speedY;
 
 
     }
 
-    this.draw = function () {
+    this.draw = function (p5) {
 
 
 
 
-        this.p5.ellipse(this.x,this.y,this.RADIUS,this.RADIUS);
+
+        p5.ellipse(this.x,this.y,this.RADIUS,this.RADIUS);
 
 
 
