@@ -4,10 +4,10 @@ import  SAT from "sat";
 
 
 
-export function Bird( x, y,brain) {
+export function Bird(canvasX,canvasY, x, y,brain) {
 
-    const GRAVITY = 2;
-    const LIFT = -5;
+    const GRAVITY = 1;
+    const LIFT = -2;
 
 
     this.RADIUS = 50;
@@ -145,11 +145,11 @@ export function Bird( x, y,brain) {
         this.y = this.y + this.speedY;
         this.speedY = this.speedY + GRAVITY;
 
-        if (this.y > 1000){
+        if (this.y > canvasY){
 
 
             this.speedY = 0;
-            this.y = 1000;
+            this.y = canvasY;
 
            return;
         }
@@ -174,6 +174,7 @@ export function Bird( x, y,brain) {
 
 
 
+        p5.fill(255,255,255,100);
 
         p5.ellipse(this.x,this.y,this.RADIUS,this.RADIUS);
 

@@ -8,7 +8,7 @@ export function Pipes(p5,canvasX,canvasY) {
     this.x = canvasX;
 
     this.top = randomY;
-    this.bottom = randomY + 300;
+    this.bottom = randomY + 200;
 
     this.canvasX = canvasX;
     this.canvasY = canvasY;
