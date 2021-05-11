@@ -29,6 +29,9 @@ class NeuralNetwork{
 
 
     copy() {
+
+        console.log("COPY");
+
         return tf.tidy(() => {
             const modelCopy = this.createModel();
             const weights = this.model.getWeights();

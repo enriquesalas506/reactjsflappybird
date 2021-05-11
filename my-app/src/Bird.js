@@ -4,10 +4,10 @@ import  SAT from "sat";
 
 
 
-export function Bird(canvasX,canvasY, x, y,brain) {
+export function Bird(canvasX,canvasY, x, y,BRAIN) {
 
-    const GRAVITY = 1;
-    const LIFT = -2;
+    const GRAVITY = 2;
+    const LIFT = -20;
 
 
     this.RADIUS = 50;
@@ -25,7 +25,7 @@ export function Bird(canvasX,canvasY, x, y,brain) {
 
 
 
-    if (brain == null) {
+    if (BRAIN == null) {
 
      //   console.log("Bird With New Brain");
 
@@ -34,7 +34,7 @@ export function Bird(canvasX,canvasY, x, y,brain) {
     }else{
 
       //  console.log("Bird With Copy");
-        this.brain = new NeuralNetwork(brain, 6, 8, 2);
+        this.brain = new NeuralNetwork(BRAIN, 6, 8, 2);
 
     }
 
@@ -118,7 +118,7 @@ export function Bird(canvasX,canvasY, x, y,brain) {
     this.goUp = function(){
 
 
-        this.speedY =  this.speedY + LIFT;
+        this.speedY =  LIFT;
 
 
 

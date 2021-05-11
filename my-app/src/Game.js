@@ -3,8 +3,19 @@ import {Pipes} from "./Pipes";
 import {Bird} from "./Bird";
 import Sketch from "react-p5";
 import Slider from "@material-ui/core/Slider";
+import Button from "@material-ui/core/Button";
+
+
+const MINIMUM_PIPES_PER_SECOND = 1;
+const MAX_PIPERS_PER_SECOND = 5;
+
+const DEFAULT_CANVAS_SIZE_X = 500;
+const DEFAULT_CANVAS_SIZE_Y = 500;
 
 class Game extends React.Component {
+
+
+
     constructor(props) {
         super(props);
         this.state = { change: true };
@@ -20,17 +31,22 @@ class Game extends React.Component {
         this.evolution = 0;
 
         this.bestBrain = null;
+        this.brainNumber = 0;
 
 
 
         this.pipes = [];
         this.counter = 0;
 
-        this.canvasX = 500;
+        this.canvasX = 1080;
         this.canvasY = 500;
 
         this.speed = 1;
         this.totalBirds = 5;
+
+        this.pipes_per_second = MINIMUM_PIPES_PER_SECOND;
+
+
     }
 
 
@@ -114,9 +130,20 @@ class Game extends React.Component {
 
         for (let x = 0; x < this.birds.length;x++) {
 
-            let bird = this.birds[x];
-            bird.think(this.pipes[0]);
+            for (let y = 0; y < this.pipes.length;y++) {
 
+                let pipe = this.pipes[y];
+                let bird = this.birds[x];
+
+
+                if (pipe.x < bird.x){
+                    continue;
+                }
+
+                bird.think(pipe);
+
+
+            }
 
 
         }
@@ -146,6 +173,7 @@ class Game extends React.Component {
 
                     this.highscore = bird.fitness;
                     this.bestBrain = bird.brain.copy();
+                    this.brainNumber = this.brainNumber +1;
 
                     this.forceUpdate();
 
@@ -211,7 +239,7 @@ class Game extends React.Component {
 
             p5.background(0);
 
-            if (this.counter % 120 == 0) {
+            if (this.counter % (120 - (90 * (this.pipes_per_second/MAX_PIPERS_PER_SECOND)))  == 0) {
 
                 this.createPipe(p5);
             }
@@ -329,9 +357,33 @@ class Game extends React.Component {
                         }}
                     />
 
+                    <p>{"Difficulty "+this.pipes_per_second}</p>
+                    <Slider
+                        defaultValue={MINIMUM_PIPES_PER_SECOND}
+                        aria-labelledby="discrete-slider"
+                        valueLabelDisplay="auto"
+                        step={1}
+                        marks
+                        min={MINIMUM_PIPES_PER_SECOND}
+                        max={MAX_PIPERS_PER_SECOND}
+                        onChange={(event,value) =>{
+
+                            this.pipes_per_second = value;
+                            this.forceUpdate();
+
+                        }}
+                    />
+
+
+
 
                     <p>{"Current Score "+this.game_score}</p>
                     <p>{"Max Score "+this.game_max_score}</p>
+                    <p>{"Brain Number "+this.brainNumber}</p>
+
+                    <Button color="primary" onClick={()=>{
+                        this.resetGame();
+                    }}>Reset Game</Button>
 
 
 

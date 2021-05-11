@@ -2,8 +2,9 @@
 export function Pipes(p5,canvasX,canvasY) {
 
 
+    const MIN_PIPE_BOTTOM = 200;
 
-    let randomY = Math.random() * (canvasY -300);
+    let randomY = Math.random() * (canvasY -MIN_PIPE_BOTTOM);
 
     this.x = canvasX;
 
@@ -15,7 +16,7 @@ export function Pipes(p5,canvasX,canvasY) {
 
 
     this.p5 = p5;
-    this.SPEEDX = 10
+    this.SPEEDX = 15
     this.WIDTH = 50;
 
 
